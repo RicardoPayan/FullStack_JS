@@ -7,6 +7,10 @@ import veterinarioRoutes  from "./routes/veterinarioRoutes.js";
 
 //Iniciando express
 const app = express();
+
+//Diciendole a express que enviaremos datos del tipo JSON
+app.use(express.json());
+
 dotenv.config();
 
 conectarDB();
