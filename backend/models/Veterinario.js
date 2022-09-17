@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 import generarId from '../helpers/generarId.js';
 
 //Dandole la forma al model
@@ -35,6 +36,19 @@ const veterinarioSchema = mongoose.Schema({
         type: Boolean,
         default: false
     }
+});
+
+//Antes de guardar, hashearemos el password.
+//Para eso usare el middleware pre()
+veterinarioSchema.pre('save', async function(next){
+
+    //Es para que un password que ya esta hasheado, no lo vuelva a hashear
+    if(!this.isModified('password')){
+        next();
+    };
+
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password,salt);
 });
 
 //Le decimos a Mongo que existe este modelo, su nombre y que forma tendra
