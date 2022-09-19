@@ -51,6 +51,12 @@ veterinarioSchema.pre('save', async function(next){
     this.password = await bcrypt.hash(this.password,salt);
 });
 
+//Verificando que la password del formulario sea igual a la hasheada
+veterinarioSchema.methods.comprobarPassword = async function (passwordFormulario) {
+    return await bcrypt.compare(passwordFormulario, this.password);
+    
+};
+
 //Le decimos a Mongo que existe este modelo, su nombre y que forma tendra
 const Veterinario = mongoose.model('Veterinario', veterinarioSchema);
 
