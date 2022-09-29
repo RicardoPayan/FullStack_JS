@@ -1,3 +1,5 @@
+import {Link} from "react-router-dom";
+
 
 const Login = () => {
   return (
@@ -5,10 +7,11 @@ const Login = () => {
       
       <div>
           <h1 className="text-indigo-600 font-black text-6xl">
-            Inicia Sesión y Administra tus <span className="text-black">Pacientes</span>
+            Inicia Sesión y Administra <span className="text-black">tus Pacientes</span>
           </h1>
       </div>
-      <div>
+
+      <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white">
           <form>
             <div className="my-5">
               <label className="uppercase text-gray-600 block text-xl font-bold">
@@ -26,7 +29,7 @@ const Login = () => {
                 Contraseña
               </label>
               <input
-                className="border w-full p-3 mt-3 bg-gray-50 rounded-xl "
+                className="border w-full p-3 mt-3 bg-gray-50 rounded-xl"
                 type="password"
                 placeholder="Contraseña"
               />
@@ -38,6 +41,17 @@ const Login = () => {
               value="Iniciar Sesión"
             />
           </form>
+
+          <nav className="mt-10 lg:flex lg:justify-between">
+              <Link
+                  className="block text-center my-5 text-gray-500"
+                  to="/registrar">¿No tienes una cuenta? Regístrate
+              </Link> {/*Enlacesc con react*/}
+              <Link
+                  className="block text-center my-5 text-gray-500"
+                  to="/olvide-password">Olvide mi Contraseña
+              </Link>
+          </nav>
       </div>
     
         
