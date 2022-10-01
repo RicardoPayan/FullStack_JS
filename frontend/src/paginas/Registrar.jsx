@@ -1,6 +1,44 @@
 import {Link} from "react-router-dom";
+import {useState} from "react";
+import Alerta from '../components/Alerta.jsx';
 
 const Registrar = () => {
+
+    /*States*/
+    const [nombre, setNombre] =  useState('');
+    const [email, setEmail] =  useState('');
+    const [password, setPassword] =  useState('');
+    const [repetirPassword, setRepetirPassword] =  useState('');
+    const [alerta, setAlerta] = useState({});
+
+
+    /*Validacion*/
+    const handleSubmit = e =>{
+        e.preventDefault();
+
+        /*Validar que los campos no esten vacios*/
+        if([nombre,email,password,repetirPassword].includes('')){
+            setAlerta({msg: 'Hay campos vacios', error: true});
+            return;
+        }
+
+        if(password !== repetirPassword){
+            setAlerta({msg: 'Las Contraseñas no coinciden', error: true});
+            return;
+        }
+
+        if(password.length < 6){
+            setAlerta({msg: 'La contraseña debe ser de al menos 6 caracteres', error: true});
+            return;
+        }
+
+        setAlerta({})
+
+
+    }
+
+    const {msg} = alerta
+
   return (
     <>
         <div>
@@ -10,7 +48,13 @@ const Registrar = () => {
         </div>
 
         <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white">
-            <form>
+
+            {msg && <Alerta
+                alerta = {alerta}
+            />}
+
+            <form
+            onSubmit={handleSubmit}>
                 <div className="my-5">
                     <label className="uppercase text-gray-600 block text-xl font-bold">
                         Nombre
@@ -19,6 +63,8 @@ const Registrar = () => {
                         className="border w-full p-3 mt-3 bg-gray-50 rounded-xl "
                         type="text"
                         placeholder="Tu Nombre"
+                        value={nombre}
+                        onChange={e => setNombre(e.target.value)}
                     />
                 </div>
 
@@ -30,6 +76,8 @@ const Registrar = () => {
                         className="border w-full p-3 mt-3 bg-gray-50 rounded-xl "
                         type="email"
                         placeholder="Email de registro"
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
                     />
                 </div>
 
@@ -41,6 +89,8 @@ const Registrar = () => {
                         className="border w-full p-3 mt-3 bg-gray-50 rounded-xl "
                         type="password"
                         placeholder="Contraseña"
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
                     />
                 </div>
 
@@ -52,6 +102,8 @@ const Registrar = () => {
                         className="border w-full p-3 mt-3 bg-gray-50 rounded-xl "
                         type="password"
                         placeholder="Repeti tu Contraseña"
+                        value={repetirPassword}
+                        onChange={e => setRepetirPassword(e.target.value)}
                     />
                 </div>
 
