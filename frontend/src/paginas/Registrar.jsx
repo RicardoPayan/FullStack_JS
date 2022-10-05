@@ -1,5 +1,6 @@
 import {Link} from "react-router-dom";
 import {useState} from "react";
+import axios from "axios";
 import Alerta from '../components/Alerta.jsx';
 
 const Registrar = () => {
@@ -13,7 +14,7 @@ const Registrar = () => {
 
 
     /*Validacion*/
-    const handleSubmit = e =>{
+    const handleSubmit = async e =>{
         e.preventDefault();
 
         /*Validar que los campos no esten vacios*/
@@ -33,6 +34,18 @@ const Registrar = () => {
         }
 
         setAlerta({})
+
+        /*Crear Usuario en la Api*/
+        try {
+            const url = "http://localhost:4000/api/veterinarios"
+            await axios.post(url, {nombre, email, password});
+            setAlerta({msg : 'Creado correctamente, revisa tue email', error : false})
+        }catch (error){
+            setAlerta({
+                msg : error.response.data.msg,
+                error : true
+            })
+        }
 
 
     }
