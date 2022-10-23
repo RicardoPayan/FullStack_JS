@@ -1,5 +1,7 @@
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
-import AuthLayout from './layout/AuthLayout'
+import AuthLayout from './layout/AuthLayout';
+import RutaProtegida from "./layout/RutaProtegida.jsx";
+import AdministrarPacientes from "./paginas/AdministrarPacientes.jsx";
 import Login from './paginas/Login'
 import ConfirmarCuenta from './paginas/ConfirmarCuenta'
 import OlvidePassword from './paginas/OlvidePassword'
@@ -20,7 +22,15 @@ function App() {
             <Route path ="olvide-password/:token" element={<NuevoPassword />} />
             <Route path ="confirmar/:id" element={<ConfirmarCuenta />} />
           </Route>
+
+          {/*Rutas de administrador*/}
+          <Route path= '/admin' element={<RutaProtegida />}>
+            <Route index element={<AdministrarPacientes />} />
+          </Route>
+
         </Routes>
+
+
 
       </AuthProvider>
 
