@@ -1,7 +1,31 @@
+import usePacientes from "../hooks/usePacientes.jsx";
 
 const ListadoPacientes = () => {
+    const {pacientes} = usePacientes();
+
     return(
-        <h1>Listado</h1>
+        <>
+            {pacientes.length ? (
+              <>
+                  <h2 className={"font-black text-xl text-center"}>Listado de pacientes</h2>
+
+                  <p className={"text-xl mt-5 mb-10 text-center"}>
+                      Administra tus {''}
+                      <span className={"text-indigo-600 font-bold"}>pacientes y citas</span>
+                  </p>
+              </>
+            ) :
+                (
+                <>
+                    <h2 className={"font-black text-xl text-center"}>No hay pacientes</h2>
+
+                    <p className={"text-xl mt-5 mb-10 text-center"}>
+                        Comienza agregando pacientes {''}
+                        <span className={"text-indigo-600 font-bold"}>y apareceran en este lugar</span>
+                    </p>
+                </>
+            )}
+        </>
     )
 };
 
