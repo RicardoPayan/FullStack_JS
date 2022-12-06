@@ -32,7 +32,8 @@ const Formulario = () => {
 
   return(
       <>
-        <p className={"text-lg text-center mb-10"}>
+        <h2 className={"font-black text-xl text-center"}>Administrador de pacientes</h2>
+        <p className={"text-lg text-center mb-10 mt-5"}>
           Añade tus pacientes y {''}
           <span className={"text-indigo-600 font-bold"}>Administralos</span>
         </p>
