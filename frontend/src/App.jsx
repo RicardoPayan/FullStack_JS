@@ -1,12 +1,16 @@
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import AuthLayout from './layout/AuthLayout';
 import RutaProtegida from "./layout/RutaProtegida.jsx";
+
 import AdministrarPacientes from "./paginas/AdministrarPacientes.jsx";
 import Login from './paginas/Login'
 import ConfirmarCuenta from './paginas/ConfirmarCuenta'
 import OlvidePassword from './paginas/OlvidePassword'
 import Registrar from './paginas/Registrar'
 import NuevoPassword from "./paginas/nuevoPassword.jsx";
+import EditarPerfil from "./paginas/EditarPerfil.jsx";
+import CambiarPassword from "./paginas/CambiarPassword.jsx";
+
 import {AuthProvider} from "./context/AuthProvider.jsx";
 import {PacientesProviders} from "./context/PacientesProviders.jsx";
 
@@ -28,6 +32,8 @@ function App() {
             {/*Rutas de administrador*/}
             <Route path= '/admin' element={<RutaProtegida />}>
               <Route index element={<AdministrarPacientes />} />
+              <Route path = "perfil" element={<EditarPerfil/>} />
+              <Route path = "cambiar-password" element={<CambiarPassword/>} />
             </Route>
           </Routes>
         </PacientesProviders>
