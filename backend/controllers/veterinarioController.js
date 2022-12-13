@@ -168,7 +168,67 @@ const nuevoPassword = async (req, res) =>{
         console.log(error);
     }
 
+
 }
+
+const actualizarPerfil = async (req,res) =>{
+    const veterinario = await Veterinario.findById(req.params.id);
+
+    if(!veterinario){
+        const error = new Error('Hubo un error')
+        return res.status(400).json({msg : error.message});
+    }
+
+    const{email} = req.body;
+    if(veterinario.email !== req.body.email){
+        const existeEmail = await Veterinario.findOne({email});
+
+        if(existeEmail){
+            const error = new Error('Ese Email ya esta en uso')
+            return res.status(400).json({msg : error.message});
+        }
+    }
+
+    try{
+        veterinario.nombre = req.body.nombre
+        veterinario.email = req.body.email
+        veterinario.web = req.body.web
+        veterinario.telefeno = req.body.telefeno
+
+        const veterinarioActualizado = await veterinario.save();
+        res.json(veterinarioActualizado);
+    }catch (e) {
+        console.log(e)
+    }
+}
+
+const actualizarPassword = async (req,res)=>{
+    //Leer los datos
+    const {id} = req.veterinario;
+    const {pwd_actual, pwd_nuevo} = req.body;
+
+    //Comprobar que el veterinario exista
+    const veterinario = await Veterinario.findById(id);
+
+    if(!veterinario){
+        const error = new Error('Hubo un error')
+        return res.status(400).json({msg : error.message});
+    }
+
+    //Comprobar su password
+    if(await veterinario.comprobarPassword(pwd_actual)){
+        //Almacenar el nuevo password
+        veterinario.password = pwd_nuevo;
+        await veterinario.save();
+        res.json({msg : "Contraseña Almacenada Correctamente"})
+
+    }else{
+        const error = new Error('La contraseña actual es incorrecto');
+        return res.status(400).json({msg : error.message});
+    }
+
+}
+
 
 export {
     registrar,
@@ -177,5 +237,7 @@ export {
     autenticar,
     olvidePassword,
     comprobarToken,
-    nuevoPassword
+    nuevoPassword,
+    actualizarPerfil,
+    actualizarPassword
 };
